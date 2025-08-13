@@ -19,7 +19,18 @@ Native macOS reader for HackerNews. Based on official [Firebase API](https://git
 
 ## Screenshots
 
-TODO: Add light/dark images here
+
+
+<picture>
+  <source srcset="https://github.com/user-attachments/assets/7bed4be6-8a8a-43b6-8c86-ff094188e831" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://github.com/user-attachments/assets/24a1d7f7-3487-40c6-b0e3-85047919d6a2" media="(prefers-color-scheme: light)" />
+  <img width="1092" height="883" alt="Screenshot of a main page of an app" src="https://github.com/user-attachments/assets/7bed4be6-8a8a-43b6-8c86-ff094188e831"/>
+</picture>
+<picture>
+  <source srcset="https://github.com/user-attachments/assets/bbc8763e-63b0-4e5d-ae76-33de4e2e9bb0" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://github.com/user-attachments/assets/541a7e59-8f72-44a8-81ff-1dee429400ca" media="(prefers-color-scheme: light)" />
+  <img width="1092" height="883" alt="Screenshot of a search page in an app" src="https://github.com/user-attachments/assets/bbc8763e-63b0-4e5d-ae76-33de4e2e9bb0" />
+</picture>
 
 ## The Idea
 
