@@ -43,13 +43,6 @@ struct StoriesListView: View {
     }
     .frame(minWidth: 300.0)
       .navigationTitle(searchViewModel.isSearching ? "Search Results" : "Hacker News")
-      .onAppear {
-
-        // Initial load if needed
-        if viewModel.currentCategory == nil {
-          viewModel.loadStories(for: selectedCategory)
-        }
-      }
       .onChange(of: selectedCategory) { oldCategory, newCategory in
 
 
