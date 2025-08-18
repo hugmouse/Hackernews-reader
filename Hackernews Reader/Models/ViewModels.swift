@@ -6,7 +6,12 @@ enum SearchResultType {
 }
 
 struct SearchResult: Identifiable, Hashable {
-  let id = UUID()
+  var id: String {
+    if let commentId {
+        return "\(storyId)-\(commentId)"
+   }
+    return String(storyId)
+  }
   let type: SearchResultType
   let storyId: Int
   let commentId: Int?

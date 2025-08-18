@@ -30,10 +30,9 @@ class SearchViewModel: ObservableObject {
       return
     }
 
-    isSearching = true
-
     searchTask = Task {
       try? await Task.sleep(nanoseconds: UInt64(debounceDelay * 1_000_000_000))
+        isSearching = true
 
       if !Task.isCancelled {
         await performSearch(query: query, stories: stories)
@@ -71,9 +70,6 @@ class SearchViewModel: ObservableObject {
       commentsData: allLoadedComments
     )
 
-    let filtered = searchService.filterStories(stories, query: query)
-
     searchResults = results
-    filteredStories = filtered
   }
 }
