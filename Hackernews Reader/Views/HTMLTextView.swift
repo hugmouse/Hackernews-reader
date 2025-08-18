@@ -5,10 +5,38 @@ import SwiftUI
 struct HTMLTextView: View {
   let html: String
   let highlightQuery: String
+  
+  private static var hasWarmStart = false
 
   init(html: String, highlightQuery: String = "") {
     self.html = html
     self.highlightQuery = highlightQuery
+  }
+  
+  // "Pre-warms" the HTML rendering engine to avoid cold start delays
+  // I honestly have no idea why it ultimately fixes NSAttributedString creation time
+  // This delay can be seen in SwiftUI profiler, in timing summary for HTMLTextView
+  // TODO: Investigate this deeper
+  static func preWarmHTMLEngine() {
+    guard !hasWarmStart else { return }
+    
+    let dummyHTML = "<p>:(</p>"
+    
+    if let data = dummyHTML.data(using: .utf8) {
+      do {
+        _ = try NSAttributedString(
+          data: data,
+          options: [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue,
+          ],
+          documentAttributes: nil
+        )
+        hasWarmStart = true
+      } catch {
+        print("[HTMLTextView] Failed to pre-warm HTML engine: \(error)")
+      }
+    }
   }
 
   var body: some View {
@@ -16,9 +44,13 @@ struct HTMLTextView: View {
       .font(.body)
       .textSelection(.enabled)
   }
+    
 
   private var attributedString: AttributedString {
+    let overallStartTime = CFAbsoluteTimeGetCurrent()
+    
     do {
+      let htmlModStartTime = CFAbsoluteTimeGetCurrent()
       // Adding some space between the lines
       // Waiting for this to destroy the view in the near future
       let modifiedHTML =
@@ -31,6 +63,7 @@ struct HTMLTextView: View {
         return AttributedString(html)
       }
 
+      let isFirstRender = !Self.hasWarmStart
       let nsAttributedString = try NSMutableAttributedString(
         data: data,
         options: [
@@ -39,33 +72,33 @@ struct HTMLTextView: View {
         ],
         documentAttributes: nil
       )
+      
+      if !Self.hasWarmStart {
+        Self.hasWarmStart = true
+      }
 
       let fullRange = NSRange(location: 0, length: nsAttributedString.length)
 
-      // Force system fonts
-      nsAttributedString.enumerateAttribute(.font, in: fullRange) { value, range, _ in
-        guard let originalFont = value as? NSFont else { return }
+    nsAttributedString.enumerateAttributes(in: fullRange, options: []) { attrs, range, _ in
+            if let originalFont = attrs[.font] as? NSFont {
+                let symbolicTraits = originalFont.fontDescriptor.symbolicTraits
+                let newBaseFont: NSFont
 
-        let symbolicTraits = originalFont.fontDescriptor.symbolicTraits
-        let newBaseFont: NSFont
+                if symbolicTraits.contains(.monoSpace) {
+                    newBaseFont = .monospacedSystemFont(ofSize: originalFont.pointSize, weight: .regular)
+                } else {
+                    newBaseFont = .systemFont(ofSize: originalFont.pointSize)
+                }
 
-        if symbolicTraits.contains(.monoSpace) {
-          newBaseFont = .monospacedSystemFont(ofSize: originalFont.pointSize, weight: .regular)
-        } else {
-          newBaseFont = .systemFont(ofSize: originalFont.pointSize)
+                let newDescriptor = newBaseFont.fontDescriptor.withSymbolicTraits(symbolicTraits)
+                let newFont = NSFont(descriptor: newDescriptor, size: NSFont.systemFontSize) ?? newBaseFont
+                nsAttributedString.addAttribute(.font, value: newFont, range: range)
+            }
+
+            if attrs[.link] != nil {
+                nsAttributedString.addAttribute(.foregroundColor, value: NSColor.linkColor, range: range)
+            }
         }
-
-        let newDescriptor = newBaseFont.fontDescriptor.withSymbolicTraits(symbolicTraits)
-        let newFont = NSFont(descriptor: newDescriptor, size: NSFont.systemFontSize) ?? newBaseFont
-        nsAttributedString.addAttribute(.font, value: newFont, range: range)
-      }
-
-      // Fix link colors to use system tint color (more readable in light/dark theme)
-      nsAttributedString.enumerateAttribute(.link, in: fullRange) { value, range, _ in
-        if value != nil {
-          nsAttributedString.addAttribute(.foregroundColor, value: NSColor.linkColor, range: range)
-        }
-      }
 
       // Trim trailing whitespace
       let string = nsAttributedString.string
