@@ -66,6 +66,9 @@ struct ContentView: View {
       if let story = newStory {
         viewModel.markStoryAsRead(story)
       }
+    }.onAppear {
+        // See description of preWarmHTMLEngine to see what the hell is this
+        HTMLTextView.preWarmHTMLEngine()
     }
   }
 }
