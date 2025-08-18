@@ -2,15 +2,12 @@ import SwiftUI
 
 struct StoryDetailView: View {
   let story: Story
-  let mainViewModel: HackerNewsViewModel?
   let searchViewModel: SearchViewModel?
   @StateObject private var viewModel = StoryDetailViewModel()
-  @Environment(\.openWindow) private var openWindow
 
-  init(story: Story, viewModel: HackerNewsViewModel? = nil, searchViewModel: SearchViewModel? = nil)
+  init(story: Story, searchViewModel: SearchViewModel? = nil)
   {
     self.story = story
-    self.mainViewModel = viewModel
     self.searchViewModel = searchViewModel
   }
 
@@ -94,8 +91,7 @@ struct StoryDetailView: View {
     url: "https://example.com/article",
     text:
       "<p>This is a sample story text with <em>HTML</em> formatting that would normally be parsed.</p>",
-    kids: [2, 3, 4, 5],
-    type: "story"
+    kids: [2, 3, 4, 5]
   )
 
   StoryDetailView(story: sampleStory)

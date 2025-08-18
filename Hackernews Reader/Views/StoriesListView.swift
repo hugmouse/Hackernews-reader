@@ -4,9 +4,7 @@ struct StoriesListView: View {
   @ObservedObject var viewModel: HackerNewsViewModel
   @ObservedObject var searchViewModel: SearchViewModel
   @Binding var selectedStory: Story?
-  let searchText: String
   @State private var selectedCategory: StoryCategory = .top
-  @State private var showingSearchResults = false
   @State private var selectedSearchResult: SearchResult?
 
   var body: some View {
@@ -102,8 +100,7 @@ struct StoriesListView: View {
 
   NavigationSplitView {
     StoriesListView(
-      viewModel: viewModel, searchViewModel: SearchViewModel(), selectedStory: $selectedStory,
-      searchText: "")
+      viewModel: viewModel, searchViewModel: SearchViewModel(), selectedStory: $selectedStory)
   } detail: {
     Text("Preview")
   }

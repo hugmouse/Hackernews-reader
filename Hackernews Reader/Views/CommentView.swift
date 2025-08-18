@@ -96,7 +96,6 @@ struct CommentView: View {
       <p>Usually posts are formatted quite strangely.</p>Love when that happens.
       """,
     kids: [2, 3],
-    parent: 0
   )
 
   ScrollView {

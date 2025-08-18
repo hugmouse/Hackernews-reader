@@ -1,17 +1,12 @@
 import FirebaseCore
 import FirebaseDatabase
 import Foundation
-import os
 
 @MainActor
 final class HackerNewsAPIService: ObservableObject {
     static let shared = HackerNewsAPIService()
     private let database: DatabaseReference
     private var activeObservers: [String: DatabaseHandle] = [:]
-    private let logger = Logger(
-        subsystem: "com.hackernews.reader",
-        category: "HackerNewsAPI"
-    )
 
     private init() {
         if FirebaseApp.app() == nil {

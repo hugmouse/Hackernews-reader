@@ -61,8 +61,7 @@ struct StoryRowView: View {
     descendants: 15,
     url: "https://example.com",
     text: nil,
-    kids: [2, 3, 4],
-    type: "story"
+    kids: [2, 3, 4]
   )
 
   List {

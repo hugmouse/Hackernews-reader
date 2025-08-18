@@ -48,7 +48,7 @@ class SearchService {
         if let match = findMatchContext(in: story.title, for: query) {
             return SearchResult(
                 type: .story, storyId: story.id, commentId: nil,
-                title: story.title, content: story.text ?? "", author: story.by,
+                title: story.title, author: story.by,
                 timestamp: story.time, matchedText: match.matched,
                 contextBefore: match.before, contextAfter: match.after
             )
@@ -58,7 +58,7 @@ class SearchService {
         if let text = story.text, let match = findMatchContext(in: text, for: query) {
             return SearchResult(
                 type: .story, storyId: story.id, commentId: nil,
-                title: story.title, content: text, author: story.by,
+                title: story.title, author: story.by,
                 timestamp: story.time, matchedText: match.matched,
                 contextBefore: match.before, contextAfter: match.after
             )
@@ -79,7 +79,7 @@ class SearchService {
                let match = findMatchContext(in: text, for: query) {
                 results.append(SearchResult(
                     type: .comment, storyId: story.id, commentId: comment.id,
-                    title: story.title, content: text, author: author,
+                    title: story.title, author: author,
                     timestamp: comment.time, matchedText: match.matched,
                     contextBefore: match.before, contextAfter: match.after
                 ))

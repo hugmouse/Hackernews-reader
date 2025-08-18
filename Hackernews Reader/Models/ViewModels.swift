@@ -16,7 +16,6 @@ struct SearchResult: Identifiable, Hashable {
   let storyId: Int
   let commentId: Int?
   let title: String
-  let content: String
   let author: String
   let timestamp: Int
   let matchedText: String
@@ -31,10 +30,6 @@ class HackerNewsViewModel: ObservableObject {
   @Published var readStoryIds: Set<Int> = []
   @Published var isLiveUpdatesEnabled = true
 
-  func getUpdatedStory(for selectedStory: Story?) -> Story? {
-    guard let selectedStory = selectedStory else { return nil }
-    return stories.first { $0.id == selectedStory.id }
-  }
 
   func markStoryAsRead(_ story: Story) {
     readStoryIds.insert(story.id)
@@ -47,7 +42,6 @@ class HackerNewsViewModel: ObservableObject {
   private var _currentCategory: StoryCategory?
   private var observerTask: Task<Void, Never>?
 
-  var currentCategory: StoryCategory? { _currentCategory }
 
   func loadTopStories() {
     loadStories(for: .top)

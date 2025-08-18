@@ -5,19 +5,17 @@ struct ContentView: View {
   @StateObject private var searchViewModel = SearchViewModel()
   @State private var selectedStory: Story?
   @State private var searchText = ""
-  @Environment(\.openWindow) private var openWindow
 
   var body: some View {
     NavigationSplitView {
       StoriesListView(
         viewModel: viewModel,
         searchViewModel: searchViewModel,
-        selectedStory: $selectedStory,
-        searchText: searchText
+        selectedStory: $selectedStory
       )
     } detail: {
       if let story = selectedStory {
-        StoryDetailView(story: story, viewModel: viewModel, searchViewModel: searchViewModel)
+        StoryDetailView(story: story, searchViewModel: searchViewModel)
       } else {
         Text("Select a story to read")
           .foregroundStyle(.secondary)
