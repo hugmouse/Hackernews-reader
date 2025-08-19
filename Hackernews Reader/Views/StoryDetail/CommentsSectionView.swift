@@ -39,7 +39,6 @@ struct CommentsListView: View {
           highlightedCommentId: highlightedCommentId,
           searchQuery: searchQuery
         )
-        .id("comment_\(comment.id)")
       }
     }
   }

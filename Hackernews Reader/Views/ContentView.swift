@@ -13,13 +13,16 @@ struct ContentView: View {
         searchViewModel: searchViewModel,
         selectedStory: $selectedStory
       )
+      .navigationTitle("Hacker News")
     } detail: {
       if let story = selectedStory {
         StoryDetailView(story: story, searchViewModel: searchViewModel)
+              .navigationTitle(story.title)
       } else {
         Text("Select a story to read")
           .foregroundStyle(.secondary)
           .accessibilityLabel("No story selected. Choose a story from the list to read.")
+          .navigationTitle("Select Story")
       }
     }
     .navigationSplitViewStyle(.automatic)

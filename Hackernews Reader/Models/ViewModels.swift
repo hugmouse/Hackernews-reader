@@ -8,7 +8,7 @@ enum SearchResultType {
 struct SearchResult: Identifiable, Hashable {
   var id: String {
     if let commentId {
-        return "\(storyId)-\(commentId)"
+        return String(commentId)
    }
     return String(storyId)
   }

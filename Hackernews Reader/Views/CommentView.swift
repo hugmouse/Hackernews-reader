@@ -26,11 +26,6 @@ struct CommentView: View {
           .buttonStyle(.link)
           .font(.subheadline)
           .accessibilityLabel("View profile for \(username)")
-        } else {
-          Text("dead")
-            .font(.subheadline)
-            .fontWeight(.semibold)
-            .foregroundStyle(.secondary)
         }
 
         Text(timeAgo(from: comment.time))
@@ -71,7 +66,7 @@ struct CommentView: View {
       }
     }
     .background(Color.clear)
-    .id("comment_\(comment.id)")
+    .id(comment.id)
     .accessibilityElement(children: .contain)
     .accessibilityLabel(
       "Comment at level \(level + 1) by \(comment.by ?? "unknown user"), \(timeAgo(from: comment.time))"
