@@ -2,9 +2,14 @@ import SwiftUI
 
 @main
 struct HackerNewsApp: App {
+  @StateObject private var hackerNewsViewModel = HackerNewsViewModel()
+  @StateObject private var searchViewModel = SearchViewModel()
+  
   var body: some Scene {
     WindowGroup {
       ContentView()
+        .environmentObject(hackerNewsViewModel)
+        .environmentObject(searchViewModel)
     }
     .windowStyle(.titleBar)
     .windowToolbarStyle(.unified)

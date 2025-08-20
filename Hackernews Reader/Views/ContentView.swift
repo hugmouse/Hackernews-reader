@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
-  @StateObject private var viewModel = HackerNewsViewModel()
-  @StateObject private var searchViewModel = SearchViewModel()
+  @EnvironmentObject var viewModel: HackerNewsViewModel
+  @EnvironmentObject var searchViewModel: SearchViewModel
   @State private var selectedStory: Story?
   @State private var searchText = ""
 
@@ -19,16 +19,20 @@ struct ContentView: View {
         StoryDetailView(story: story, searchViewModel: searchViewModel)
               .navigationTitle(story.title)
       } else {
-        Text("Select a story to read")
-          .foregroundStyle(.secondary)
-          .accessibilityLabel("No story selected. Choose a story from the list to read.")
-          .navigationTitle("Select Story")
+          VStack {
+              Text("Empty")
+                  .font(.title2)
+              Text("Select a story to read")
+                  .font(.subheadline)
+                .accessibilityLabel("No story selected. Choose a story from the list to read.")
+                .navigationTitle("Select Story")
+          }
       }
     }
-    .navigationSplitViewStyle(.automatic)
+    .navigationSplitViewStyle(.balanced)
     .searchable(text: $searchText, prompt: "Search")
     .toolbar {
-      ToolbarItemGroup(placement: .navigation) {
+        ToolbarItemGroup(placement: .navigation) {
         HStack {
           Button(action: {
             viewModel.toggleLiveUpdates()
@@ -59,9 +63,6 @@ struct ContentView: View {
         }
       }
     }
-    .task {
-      viewModel.loadTopStories()
-    }
     .onChange(of: searchText) { _, newText in
       searchViewModel.updateSearchQuery(newText, stories: viewModel.stories)
     }
@@ -78,4 +79,6 @@ struct ContentView: View {
 
 #Preview {
   ContentView()
+    .environmentObject(HackerNewsViewModel())
+    .environmentObject(SearchViewModel())
 }

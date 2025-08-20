@@ -20,6 +20,7 @@ struct StoryRowView: View {
                     Button(story.by) {
                         openWindow(id: "userProfile", value: story.by)
                     }
+                    .lineLimit(1)
                     .fontWeight(.semibold)
                     .buttonStyle(.link)
                     .accessibilityLabel("View profile for \(story.by)")

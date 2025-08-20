@@ -12,7 +12,6 @@ struct SearchResultsView: View {
           .font(.caption)
           .foregroundColor(.secondary)
           .padding(.horizontal)
-        Spacer()
       }
       .padding(.bottom, 4)
 
@@ -67,7 +66,7 @@ struct SearchResultRowView: View {
         Text(result.matchedText)
           .font(.body)
           .fontWeight(.semibold)
-          .background(Color.yellow.opacity(0.3))
+          .background(Color.yellow.opacity(0.7))
           .cornerRadius(2)
 
         if !result.contextAfter.isEmpty {

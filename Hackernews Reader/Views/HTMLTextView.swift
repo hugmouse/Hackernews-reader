@@ -138,8 +138,7 @@ struct HTMLTextView: View {
 
       // Apply highlighting
       attributedString.addAttribute(
-        .backgroundColor, value: NSColor.yellow.withAlphaComponent(0.3), range: foundRange)
-      attributedString.addAttribute(.foregroundColor, value: NSColor.black, range: foundRange)
+        .backgroundColor, value: NSColor.yellow.withAlphaComponent(0.7), range: foundRange)
 
       // Move search range to continue looking
       searchRange.location = foundRange.location + foundRange.length
