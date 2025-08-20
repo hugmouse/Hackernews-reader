@@ -13,6 +13,7 @@ Native macOS reader for HackerNews. Based on official [Firebase API](https://git
 
 - Live updates – see changes to stories and comments in real-time `[1]`
 - Search – fully local text search
+- Tabs – just like in your favorite browser
 - Offline support – read stories and comments offline
 
 `[1]` You can disable live updates by clicking on "Live" button in the app's title.
@@ -23,16 +24,16 @@ Native macOS reader for HackerNews. Based on official [Firebase API](https://git
   <tr>
     <td>
       <picture>
-        <source srcset="https://github.com/user-attachments/assets/7bed4be6-8a8a-43b6-8c86-ff094188e831" media="(prefers-color-scheme: dark)" />
-        <source srcset="https://github.com/user-attachments/assets/24a1d7f7-3487-40c6-b0e3-85047919d6a2" media="(prefers-color-scheme: light)" />
-        <img alt="Screenshot of a main page of an app" src="https://github.com/user-attachments/assets/7bed4be6-8a8a-43b6-8c86-ff094188e831"/>
+        <source srcset="https://github.com/user-attachments/assets/650b18d2-e35a-4244-8d4e-51bce34ed344" media="(prefers-color-scheme: dark)" />
+        <source srcset="https://github.com/user-attachments/assets/51e8bab7-e444-44d6-b5bf-625316ec1971" media="(prefers-color-scheme: light)" />
+        <img alt="Screenshot of a main page of an app" src="https://github.com/user-attachments/assets/51e8bab7-e444-44d6-b5bf-625316ec1971"/>
       </picture>
     </td>
     <td>
       <picture>
-        <source srcset="https://github.com/user-attachments/assets/bbc8763e-63b0-4e5d-ae76-33de4e2e9bb0" media="(prefers-color-scheme: dark)" />
-        <source srcset="https://github.com/user-attachments/assets/541a7e59-8f72-44a8-81ff-1dee429400ca" media="(prefers-color-scheme: light)" />
-        <img alt="Screenshot of a search page in an app" src="https://github.com/user-attachments/assets/bbc8763e-63b0-4e5d-ae76-33de4e2e9bb0" />
+        <source srcset="https://github.com/user-attachments/assets/93709032-4c17-408f-a0c1-3d62e0c6875d" media="(prefers-color-scheme: dark)" />
+        <source srcset="https://github.com/user-attachments/assets/63339865-d8d7-4bd0-a465-d9763c2adf1f" media="(prefers-color-scheme: light)" />
+        <img alt="Screenshot of a search page in an app" src="https://github.com/user-attachments/assets/63339865-d8d7-4bd0-a465-d9763c2adf1f" />
       </picture>
     </td>
   </tr>
